@@ -42,7 +42,7 @@
 		basePackage: 自动扫描的配置包
 	 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="org.micaicms.*.*.dao" />
+		<property name="basePackage" value="${package}.*.dao" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 	
