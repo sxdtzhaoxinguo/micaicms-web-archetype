@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 基础设施层与服务层 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 引入数据源配置 -->
+	<import resource="datasource-config.xml" />
+
+	<!-- 扫描spring组件 -->
+	<context:component-scan base-package="org.micaicms" />
+
+	<!-- 
+		class:  指定用来创建 sqlSession的工厂
+		dataSource:  使用的数据源
+	-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:sample/*/mybatis/mapper/*Mapper.xml</value>
+			</list>
+		</property>
+		<!-- 加载分页插件 -->
+		<property name="plugins">
+			<list>
+				<bean
+					class="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
+					<property name="dialectClass"
+						value="com.github.miemiedev.mybatis.paginator.dialect.MySQLDialect"></property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 
+		class :  指定自动扫描 xxxMapper.xml 
+		basePackage: 自动扫描的配置包
+	 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="org.micaicms.*.*.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+	
+	<!-- JDBC事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 注解实现事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+</beans>

@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//src/main/resources=UTF-8
+encoding//src/main/resources/archetype-resources/src/main/resources/log4j2.xml=UTF-8
+encoding//src/main/resources/archetype-resources/src/main/resources/spring/business-config.xml=UTF-8
+encoding//src/main/resources/archetype-resources/src/main/resources/spring/data-access.properties=UTF-8
+encoding//src/main/resources/archetype-resources/src/main/resources/spring/datasource-config.xml=UTF-8
+encoding//src/main/resources/archetype-resources/src/main/resources/spring/mvc-core-config.xml=UTF-8
+encoding//src/main/resources/archetype-resources/src/main/resources/spring/mvc-view-config.xml=UTF-8
+encoding//src/main/resources/archetype-resources/src/main/webapp/WEB-INF/pages=UTF-8
+encoding//src/main/resources/archetype-resources/src/main/webapp/WEB-INF/pages/error/error.jsp=UTF-8

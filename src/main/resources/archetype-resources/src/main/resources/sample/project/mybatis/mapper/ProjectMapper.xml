@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"     
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace和定义的Mapper接口对应，并实现其中的方法 -->
+<mapper namespace="${package}.infrastructure.dao.ProjectDao">
+
+	<!-- 查询返回结果集 -->
+	<resultMap type="${package}.domain.po.ProjectPO" id="projectResultMap">
+		<result property="prjId" column="prjid" jdbcType="VARCHAR" />
+		<result property="prjName" column="prjname" />
+		<result property="prjType" column="prjtype" />
+	</resultMap>
+
+	<sql id="otherWhere">
+		<where>
+			<if test="prjName!=null and prjName!=''">
+				and prjname like concat('%',#prjName,'%')
+			</if>
+			<if test="prjType!=null and prjType!=''">
+				and prjtype=#{prjType,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
+
+	<insert id="insertProject" parameterType="${package}.domain.po.ProjectPO">
+		insert into project
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			prjid,prjName,prjType
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{prjId,jdbcType=VARCHAR},#{prjName,jdbcType=VARCHAR},#{prjType,jdbcType=VARCHAR}
+		</trim>
+	</insert>
+
+	<select id="selectObject" parameterType="Map"
+		resultType="${package}.domain.po.ProjectPO">
+		select p.* from project p
+	</select>
+
+	<select id="selectProject" parameterType="Map"
+		resultType="${package}.domain.po.ProjectPO">
+		select * from project
+		<include refid="otherWhere" />
+
+	</select>
+
+	<select id="countProject" parameterType="Map" resultType="Integer">
+		select count(*) from project
+		<include refid="otherWhere" />
+	</select>
+
+	<select id="selectProjectById" parameterType="String" resultType="${package}.domain.po.ProjectPO">
+		select * from project
+		where prjid = #{prjId,jdbcType=VARCHAR}
+	</select>
+
+	<delete id="deleteProjectById" parameterType="String">
+		delete from project
+		where prjid = #{prjId,jdbcType=VARCHAR}
+	</delete>
+
+	<update id="updateProjectById" parameterType="${package}.domain.po.ProjectPO">
+		update project
+		<set>
+			<if test="prjName != null">
+				prjName= #{prjName,jdbcType=VARCHAR},
+			</if>
+			<if test="prjType!=null">
+				prjType= #{prjType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where prjid = #{prjId,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

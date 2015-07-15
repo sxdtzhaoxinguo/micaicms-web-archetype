@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<!-- This configuration file was written by the eclipse-cs plugin configuration 
+	editor -->
+<!-- Checkstyle-Configuration: check Description: none -->
+<module name="Checker">
+
+	<property name="severity" value="error" />
+	<property name="charset" value="UTF-8" />
+	<message key="general.exception" value="有一个异常 - {0}  " />
+	<message key="general.fileNotFound" value="文件没找到!" />
+
+	<!--章节2.2A -->
+	<!-- 不允许使用TAB缩进,此规则必须在<TreeWalker>标签外 -->
+	<module name="FileTabCharacter">
+		<property name="severity" value="error" />
+		<property name="eachLine" value="true" />
+		<message key="containsTab" value="本行包含 tab 字符,违反《迷彩CMS平台Java编码规范  V1.0》2.2章节的要求" />
+	</module>
+
+
+	<!--章节3.1.1 -->
+	<!-- 检查每个java package中是否有java注释文件，默认是允许一个package-info.java， 也可以通过allowLegacy属性配置允许package.html。此规则必须在<TreeWalker>标签外 -->
+	<module name="JavadocPackage">
+		<message key="javadoc.packageInfo"
+			value="包注释没有写入该包所在路径下一个名为package-info.java的包说明文件，违反《迷彩CMS平台Java编码规范  V1.0》3.1.1章节的要求" />
+	</module>
+
+	<!-- 章节3.2 -->
+	<!-- 对文件头的注释进行检查 -->
+	<!-- 文件头注释检查 -->
+	<module name="RegexpHeader">
+		<property name="header"
+			value="/(\*){2}\n\*(\S){3}(Copyright\s(\S)\s中国证监会迷彩CMS平台版权所有。(\S){4})\n\*(类名:([A-Z][a-z]*)+)\n\*(创建人:([A-Z]*[a-z]*[\u4E00-\u9FFF]*)+(\s{4}))(创建时间:([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8]))))\n\*/" />
+		<message key="header.missing" value="缺少文件头注释，违反《迷彩CMS平台Java编码规范  V1.0》3.2章节的要求" />
+		<message key="header.mismatch"
+			value="文件头注释与预定义规则不匹配，违反《迷彩CMS平台Java编码规范  V1.0》3.2章节的要求" />
+	</module>
+	<module name="TreeWalker">
+		<property name="severity" value="error" />
+		<property name="tabWidth" value="4" />
+		<message key="general.exception" value="有一个异常 - {0}" />
+
+		<!--章节1.2.1 -->
+		<!-- Import语句顺序检测 -->
+		<module name="ImportOrder">
+			<property name="groups" value="java,javax,org,com" />
+			<message key="import.ordering"
+				value="本行或者上一行包导入顺序不对，违反《迷彩CMS平台Java编码规范  V1.0》1.2.1章节的要求" />
+		</module>
+
+		<!--章节2.2B -->
+		<!-- 缩进风格 -->
+		<module name="Indentation">
+			<property name="severity" value="error" />
+			<property name="basicOffset" value="4" />
+			<message key="indentation.error"
+				value="你缩进了{1}个空格，正确应该缩进 {2}个空格，违反《迷彩CMS平台Java编码规范  V1.0》2.2章节的要求" />
+			<!-- 子级缩进 -->
+			<message key="indentation.child.error"
+				value="你缩进了{1}个空格，正确应该缩进 {2}个空格，违反《迷彩CMS平台Java编码规范  V1.0》2.2章节的要求" />
+		</module>
+
+		<!--章节2.3 -->
+		<!-- 页宽 -->
+		<module name="LineLength">
+			<property name="max" value="120" />
+			<property name="ignorePattern" value="^ *\* *[^ ]+$"/>
+			<message key="maxLineLen" value="行字符数超过120个.违反《迷彩CMS平台Java编码规范  V1.0》2.3章节的要求" />
+		</module>
+
+		<!--章节2.4 -->
+		<!--操作符换行策略检查 -->
+		<module name="OperatorWrap">
+			<property name="severity" value="error" />
+			<property name="option" value="nl" />
+			<property name="tokens"
+				value="ASSIGN,BAND,BOR,DIV,EQUAL,GE,GT,LAND,LE,LOR,LT,MINUS_ASSIGN,MOD,MOD_ASSIGN,NOT_EQUAL,PLUS,PLUS_ASSIGN,QUESTION,STAR,STAR_ASSIGN" />
+			<message key="line.new"
+				value="''{0}'没有放在新行之首，违反《迷彩CMS平台Java编码规范  V1.0》2.4章节的要求" />
+		</module>
+
+		<!--章节2.6 -->
+		<module name="ParenPad">
+			<property name="severity" value="error" />
+			<property name="tokens"
+				value="LPAREN,RPAREN,CTOR_CALL,METHOD_CALL,SUPER_CTOR_CALL" />
+			<message key="ws.followed"
+				value="''{0}'' 后面有空格，违反《迷彩CMS平台Java编码规范  V1.0》2.6章节的要求" />
+			<message key="ws.preceded"
+				value="''{0}''前面有空格，违反《迷彩CMS平台Java编码规范  V1.0》2.6章节的要求" />
+		</module>
+		<module name="TypecastParenPad">
+			<property name="severity" value="error" />
+			<property name="tokens" value="RPAREN,TYPECAST" />
+			<message key="ws.followed"
+				value="''{0}''后面多一个空格，违反《迷彩CMS平台Java编码规范  V1.0》2.6章节的要求" />
+			<message key="ws.preceded"
+				value="''{0}''前面多一个空格，违反《迷彩CMS平台Java编码规范  V1.0》2.6章节的要求" />
+		</module>
+		<module name="WhitespaceAfter">
+			<property name="severity" value="error" />
+			<property name="tokens" value="COMMA,SEMI" />
+			<message key="ws.notFollowed"
+				value="''{0}''后面多一个空格，违反《迷彩CMS平台Java编码规范  V1.0》2.6章节的要求" />
+		</module>
+		<module name="WhitespaceAround">
+			<property name="severity" value="error" />
+			<property name="tokens"
+				value="RCURLY,LITERAL_ASSERT,LITERAL_ASSERT,LITERAL_CATCH,LITERAL_DO,LITERAL_ELSE,LITERAL_FINALLY,LITERAL_FOR,LITERAL_IF,LITERAL_RETURN,LITERAL_SYNCHRONIZED,LITERAL_TRY,LITERAL_WHILE" />
+			<property name="allowEmptyConstructors" value="true" />
+			<property name="allowEmptyMethods" value="true" />
+			<message key="ws.notPreceded"
+				value="''{0}'' 关键字前少一个空格，违反《迷彩CMS平台Java编码规范  V1.0》2.6章节的要求" />
+			<message key="ws.notFollowed"
+				value="''{0}'' 关键字后少一个空格，违反《迷彩CMS平台Java编码规范  V1.0》2.6章节的要求" />
+		</module>
+
+		<!--章节2.7 -->
+		<!-- 每行语句数量 -->
+		<module name="OneStatementPerLine">
+			<message key="multiple.statements.line" value="禁止一行有多句代码，违反《迷彩CMS平台Java编码规范  V1.0》2.7章节的要求" />
+		</module>
+
+		<!--章节2.8 -->
+		<!-- 每行变量声明数量 -->
+		<module name="MultipleVariableDeclarations">
+			<property name="severity" value="error" />
+			<message key="multiple.variable.declarations.comma"
+				value="每一个变量的定义必须在它的声明处，且在同一行，违反《迷彩CMS平台Java编码规范  V1.0》2.8章节的要求" />
+			<message key="multiple.variable.declarations" value="每一行只能定义一个变量，违反《迷彩CMS平台Java编码规范  V1.0》2.8章节的要求" />
+		</module>
+
+		<!--章节2.9.1 -->
+		<!-- 检查右侧大括号 -->
+		<module name="RightCurly">
+			<property name="severity" value="error" />
+			<message key="line.alone" value="右侧大括号必须放在单独一行" />
+			<message key="line.new" value="右侧大括号必须放在一个新行" />
+		</module>
+
+		<!--章节2.9.1 -->
+		<!-- 检查左侧大括号 左侧大括号必须放在前一行代码的行尾 -->
+		<module name="LeftCurly">
+			<property name="severity" value="error" />
+			<message key="line.previous"
+				value="左侧大括号没有放在前一行代码的行尾，违反《迷彩CMS平台Java编码规范  V1.0》2.9.1章节的要求" />
+		</module>
+
+		<!--章节2.9.2 -->
+		<!-- 检查代码块是否缺失大括号 -->
+		<module name="NeedBraces">
+			<message key="needBraces"
+				value="''{0}'' 结构没有用大括号 '''{}'''s，违反《迷彩CMS平台Java编码规范  V1.0》2.9.2章节的要求" />
+		</module>
+
+		<!--章节3.3 -->
+		<!--对类和接口的javadoc注释进行检查 -->
+		<module name="JavadocType">
+			<!-- To configure the check for an @author tag: -->
+			<property name="authorFormat" value="\S" />
+			<property name="severity" value="error" />
+			<message key="type.missingTag"
+				value="Javadoc 类型的注释丢失 {0} 标签.违反《迷彩CMS平台Java编码规范  V1.0》3.3章节的要求" />
+			<message key="javadoc.missing"
+				value="缺少 Javadoc 注释.违反《迷彩CMS平台Java编码规范  V1.0》3.3章节的要求" />
+			<message key="javadoc.unusedTagGeneral"
+				value="未使用过的 Javadoc 标签.违反《迷彩CMS平台Java编码规范  V1.0》3.23章节的要求" />
+			<message key="javadoc.unusedTag"
+				value="未使用过的 {0} 标签for ''{1}''.违反《迷彩CMS平台Java编码规范  V1.0》3.3章节的要求" />
+			<message key="type.tagFormat"
+				value="Javadoc 类型标签 {0}必须匹配模式 ''{1}''.违反《迷彩CMS平台Java编码规范  V1.0》3.3章节的要求" />
+		</module>
+
+		<!--章节3.4，3.7 -->
+		<!--public protect private变量的注释进行检查 -->
+		<module name="JavadocVariable">
+			<property name="severity" value="error" />
+			<property name="scope" value="public" />
+			<message key="javadoc.missing"
+				value="变量注释：缺少Javadoc注释,违反《迷彩CMS平台Java编码规范  V1.0》3.4章节的要求" />
+		</module>
+		<module name="JavadocVariable">
+			<property name="severity" value="error" />
+			<property name="scope" value="protected" />
+			<message key="javadoc.missing"
+				value="变量注释：缺少Javadoc注释,违反《迷彩CMS平台Java编码规范  V1.0》3.4章节的要求" />
+		</module>
+		<module name="JavadocVariable">
+			<property name="severity" value="error" />
+			<message key="javadoc.missing"
+				value="变量注释：缺少Javadoc注释,违反《迷彩CMS平台Java编码规范  V1.0》3.4章节的要求" />
+		</module>
+
+		<!--章节3.5 -->
+		<!-- 检查所有方法的javadoc，可以不声明RuntimeException -->
+		<module name="JavadocMethod">
+			<property name="scope" value="public" />
+			<property name="allowUndeclaredRTE" value="true" />
+			<property name="allowMissingParamTags" value="true" />
+			<!--允许get set 方法没有注释 -->
+			<property name="allowMissingPropertyJavadoc" value="true" />
+			<message key="javadoc.missing"
+				value="方法注释：缺少Javadoc注释，违反《迷彩CMS平台Java编码规范  V1.0》3.5章节的要求" />
+		</module>
+		<module name="JavadocMethod">
+			<property name="scope" value="private" />
+			<property name="excludeScope" value="protected" />
+			<!--允许get set 方法没有注释 -->
+			<property name="allowMissingPropertyJavadoc" value="true" />
+			<message key="javadoc.missing"
+				value="方法注释：缺少Javadoc注释，违反《迷彩CMS平台Java编码规范  V1.0》3.5章节的要求" />
+		</module>
+		<!-- 命名规范 -->
+		<!--章节4.2 -->
+		<!-- 包名命名规范 -->
+		<module name="PackageName">
+			<property name="format" value="^org\.neris\.[a-z]+(\.[a-z]+)+$" />
+			<message key="name.invalidPattern"
+				value="包名 ''{0}'' 不符合org.neris.项目名.模块名，违反《迷彩CMS平台Java编码规范  V1.0》4.2章节的要求" />
+		</module>
+
+		<!--章节4.3,4.4 -->
+		<!-- 类的命名,匹配规则默认:(^[A-Z][a-zA-Z0-9]*$),必须以大写字母开始 -->
+		<module name="TypeName">
+			<property name="tokens" value="CLASS_DEF" />
+			<message key="name.invalidPattern"
+				value="类名 ''{0}''没有通过大驼峰命名法命名，具体名称应使用意义完整的英文描述，违反《迷彩CMS平台Java编码规范  V1.0》4.3章节的要求" />
+		</module>
+
+		<!-- 接口命名,匹配规则默认:(^[A-Z][a-zA-Z0-9]*$),必须以大写字母开始 -->
+		<module name="TypeName">
+			<property name="tokens" value="INTERFACE_DEF" />
+			<message key="name.invalidPattern"
+				value="接口名 ''{0}''没有通过大驼峰命名法命名，具体名称应使用意义完整的英文描述，违反《迷彩CMS平台Java编码规范  V1.0》4.3章节的要求" />
+		</module>
+
+		<!--章节4.6 -->
+		<!-- 方法名命名 -->
+		<module name="MethodName">
+			<property name="severity" value="error" />
+			<property name="format" value="(^[a-z][a-zA-Z0-9]*$)" />
+			<message key="name.invalidPattern"
+				value="方法名 ''{0}''没有通过小驼峰命名法命名，具体名称应使用意义完整的英文描述.违反《迷彩CMS平台Java编码规范  V1.0》4.6章节的要求" />
+		</module>
+
+		<!--章节4.7 -->
+		<!--章节4.7.1 -->
+		<!-- 局部变量命名 -->
+		<module name="LocalVariableName">
+			<property name="format" value="(^[a-z][a-zA-Z0-9]*$)" />
+			<message key="name.invalidPattern"
+				value="变量名 ''{0}''没有通过小驼峰命名法命名，具体名称应使用意义完整的英文描述.违反《迷彩CMS平台Java编码规范  V1.0》4.7章节的要求" />
+		</module>
+		<!-- 局部的final变量，包括catch中的参数的检查 -->
+		<module name="LocalFinalVariableName">
+			<property name="severity" value="error" />
+			<message key="name.invalidPattern"
+				value="变量名 ''{0}''没有通过小驼峰命名法命名，具体名称应使用意义完整的英文描述.违反《迷彩CMS平台Java编码规范  V1.0》4.7章节的要求" />
+		</module>
+		<!-- 变量命名 -->
+		<module name="MemberName">
+			<message key="name.invalidPattern"
+				value="变量名 ''{0}''没有通过小驼峰命名法命名，具体名称应使用意义完整的英文描述.违反《迷彩CMS平台Java编码规范  V1.0》4.7章节的要求" />
+		</module>
+		<!-- 静态变量命名 -->
+		<module name="StaticVariableName">
+			<message key="name.invalidPattern"
+				value="变量名 ''{0}''没有通过小驼峰命名法命名，具体名称应使用意义完整的英文描述.违反《迷彩CMS平台Java编码规范  V1.0》4.7章节的要求" />
+		</module>
+		<!--章节4.7.2 -->
+		<!-- 数组变量命名 -->
+		<module name="ArrayTypeStyle">
+			<property name="severity" value="error" />
+			<message key="array.type.style"
+				value="数组定义没有采取String [] args这种方式，违反《迷彩CMS平台Java编码规范  V1.0》4.7.2章节的要求" />
+		</module>
+
+		<!--章节4.8 -->
+		<!-- 常量命名 -->
+		<module name="ConstantName">
+			<property name="severity" value="error" />
+			<message key="name.invalidPattern" value="''{0}'' 常量名违反《迷彩CMS平台Java编码规范  V1.0》4.8章节的要求." />
+		</module>
+
+		<!--章节5.1 -->
+		<!-- import语句不使用通配符 -->
+		<module name="AvoidStarImport">
+			<property name="severity" value="error" />
+			<message key="import.avoidStar" value="引用包时不能使用*号.违反《迷彩CMS平台Java编码规范  V1.0》5.1章节的要求" />
+		</module>
+
+		<!--章节5.2 -->
+		<!-- 魔法数检测 -->
+		<module name="MagicNumber">
+			<property name="severity" value="error" />
+			<message key="magic.number"
+				value="''{0}'' 是一个魔法数(即常数).违反《迷彩CMS平台Java编码规范  V1.0》5.2章节的要求" />
+		</module>
+
+		<!--章节5.4 -->
+		<!-- 多余的关键字，包含不适用this作为关键字 -->
+		<module name="RedundantModifier">
+			<message key="redundantModifier"
+				value="''{0}'' 多余的修饰符.违反《迷彩CMS平台Java编码规范  V1.0》5.4章节的要求" />
+		</module>
+
+		<!--章节5.5 -->
+		<!-- 重载父类方法 -->
+		<module name="MissingOverride">
+			<message key="annotation.missing.override"
+				value="重载方法缺少@Override，违反《迷彩CMS平台Java编码规范  V1.0》5.5章节的要求" />
+			<message key="tag.not.valid.on" value="注释-> Javadoc {0}标签在这个位置是无效的." />
+		</module>
+
+		<!--章节5.6 -->
+		<!--判断语句使用 -->
+		<module name="SimplifyBooleanExpression">
+			<property name="severity" value="error" />
+			<message key="simplify.expression" value="布尔冗余，违法《迷彩CMS平台Java编码规范  V1.0》5.6章节的要求." />
+		</module>
+
+		<!--章节5.7 -->
+		<!-- 检查switch语句是否忘记了default标签 -->
+		<module name="MissingSwitchDefault">
+			<property name="severity" value="error" />
+			<message key="missing.switch.default"
+				value="switch 语句后边没有 default 语句.违法《迷彩CMS平台Java编码规范  V1.0》5.7章节的要求" />
+		</module>
+
+		<!-- 检查switch语句中default标签的顺序 -->
+		<module name="DefaultComesLast">
+			<property name="severity" value="error" />
+			<message key="default.comes.last" value="建议Default 放在 switch 语句的最后." />
+		</module>
+
+		<!--章节5.9 -->
+		<!-- 禁止使用System.out.println -->
+		<module name="Regexp">
+			<property name="format" value="System\.out" />
+			<property name="message"
+				value="不要使用 System.out 与 System.err 进行控制台打印，应该使用日志工具类(如：log4j)进行统一记录或者打印，违法《迷彩CMS平台Java编码规范  V1.0》5.9章节的要求" />
+			<property name="illegalPattern" value="true" />
+		</module>
+		<!-- 禁止使用System.err.println -->
+		<module name="Regexp">
+			<property name="format" value="System\.err" />
+			<property name="message"
+				value="不要使用 System.out 与 System.err 进行控制台打印，应该使用日志工具类(如：log4j)进行统一记录或者打印，违法《迷彩CMS平台Java编码规范  V1.0》5.9章节的要求" />
+			<property name="illegalPattern" value="true" />
+		</module>
+
+		<!--章节5.10 -->
+		<!-- 不允许用main方法测试 -->
+		<module name="UncommentedMain">
+			<message key="uncommented.main"
+				value="不允许使用main方法进行测试，违反《迷彩CMS平台Java编码规范  V1.0》5.10章节的要求" />
+		</module>
+
+
+
+
+	</module>
+
+</module>

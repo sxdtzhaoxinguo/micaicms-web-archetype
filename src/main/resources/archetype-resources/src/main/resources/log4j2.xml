@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- status="OFF"，可以去掉，它的含义为是否记录log4j2本身的event信息，默认是OFF -->
+<configuration status="OFF" monitorInterval="1800">
+     <!-- 定义下面的引用名 -->
+     <Properties>
+          <property name="log_pattern">%d{yyyy-MM-dd HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n</property>
+          <property name="basePath">D:/publicmodule_logs</property>
+          <property name="file_name_path">${basePath}/publicmodule.log</property>
+          <property name="rolling_file_name">${basePath}/%d{yyyy-MM-dd}-%i.log.zip</property>
+          <!-- 日志切割的最小单位 -->
+          <property name="every_file_size">10M</property>
+          <!-- 日志输出级别 -->
+          <property name="output_log_level">debug</property>
+     </Properties>
+ 
+    <!--先定义所有的appender-->
+    <appenders>
+       <!--这个输出控制台的配置-->
+       <Console name="Console" target="SYSTEM_OUT">
+           <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+           <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+           <!--这个都知道是输出日志的格式-->
+           <PatternLayout pattern="${log_pattern}"/>
+       </Console>
+ 
+       <!--这个会打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
+       <RollingFile name="RollingFile" fileName="${file_name_path}" filePattern="${rolling_file_name}">
+           <PatternLayout pattern="${log_pattern}"/>
+           <SizeBasedTriggeringPolicy size="${every_file_size}"/>
+       </RollingFile>
+
+    </appenders>
+    
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
+    <loggers>
+       <!-- 控制spring和springmvc相关日志的显示级别 -->
+       <logger name="org.springframework" level="error" additivity="false">  
+         <appender-ref ref="Console"/>  
+         <appender-ref ref="RollingFile"/>
+       </logger>
+       <!-- 控制mybatis相关日志的显示级别 -->
+       <logger name="org.mybatis" level="error" additivity="false">  
+         <appender-ref ref="Console"/>  
+         <appender-ref ref="RollingFile"/>
+       </logger>
+       <logger name="org.apache.ibatis" level="debug" additivity="false">  
+         <appender-ref ref="Console"/>  
+         <appender-ref ref="RollingFile"/>
+       </logger>
+       <!--建立一个默认的root的logger，需要在root的level中指定输出的级别，-->
+       <root level="${output_log_level}">
+           <appender-ref ref="RollingFile"/>
+           <appender-ref ref="Console"/>
+       </root>
+ 
+    </loggers>
+</configuration>

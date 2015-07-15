@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 数据源配置 -->
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
+		p:username="${jdbc.username}" p:password="${jdbc.password}" />
+
+	<!-- 开发，测试,生成，仿真环境数据连接池配置 -->
+	<beans profile="dev,test,prd,simu">
+		<!-- 加载配置属性文件 -->
+		<context:property-placeholder
+			location="classpath:properties/data-access.properties" />
+	</beans>
+
+	<!-- 仿真，生产环境数据源jndi配置-->
+	<!-- <beans profile="prd,simu">
+		<context:property-placeholder location="classpath:properties/jndi_connection.properties" />
+		<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+			<property name="jndiName">
+				<value>${symbol_dollar}{jndiName}</value>
+			</property>
+		</bean>
+	</beans> -->
+	 
+</beans>

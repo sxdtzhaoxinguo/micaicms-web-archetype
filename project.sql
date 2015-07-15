@@ -1,0 +1,8 @@
+CREATE TABLE `project` (
+	`prjId` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8_bin',
+	`prjName` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8_bin',
+	`prjType` INT(32) NULL DEFAULT NULL
+)
+COLLATE='utf8_bin'
+ENGINE=InnoDB
+;

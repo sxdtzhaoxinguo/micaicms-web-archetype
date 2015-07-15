@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<!-- 配置数据库的JDBC驱动.换成你自己的驱动位置 -->
+    <classPathEntry
+        location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar" />
+    <context id="context1" targetRuntime="MyBatis3">
+    	
+    	<!-- 去除自动生成的注释 -->
+	    <commentGenerator>
+	        <property name="suppressAllComments" value="true" />
+	  	</commentGenerator>
+   		<!-- 数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://localhost:3306/mydb?useUnicode=true&amp;characterEncoding=utf-8"
+            userId="root" password="taiji" />
+        <!-- 自动生成Model代码的位置 -->   
+        <javaModelGenerator targetPackage="${package}.domain.po"
+            targetProject="D:\mavenzz\neris-sample\src\main\java" />
+        <!--自动生成 sql mapper 映射配置文件存放位置 -->    
+        <sqlMapGenerator targetPackage="${package}.infrastructure.dao.automapper"
+            targetProject="D:\mavenzz\neris-sample\src\main\java" />
+        <!-- ibatis2 中是dao层，但在mybatis3中，其实就是mapper接口 -->    
+        <javaClientGenerator targetPackage="${package}.infrastructure.dao.automapper"
+            targetProject="D:\mavenzz\neris-sample\src\main\java" type="XMLMAPPER" />
+         
+        <table schema="mybatis" tableName="user" domainObjectName="User"
+		        enableCountByExample="false" enableUpdateByExample="false" 
+		        enableDeleteByExample="false" enableSelectByExample="false"
+		        selectByExampleQueryId="false">
+		</table>
+    </context>
+</generatorConfiguration>
